@@ -2,43 +2,49 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>地域アンケート</title>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <style>
     body {
       font-family: sans-serif;
-      padding: 30px;
+      padding: 20px;
       text-align: center;
+      background-color: #f9f9f9;
     }
     h2 {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
     }
-    .area-button, .accordion {
+    .area-button, .accordion, .submit-button {
       display: block;
-      width: 100%;
-      max-width: 320px;
+      width: 90%;
+      max-width: 360px;
       margin: 10px auto;
       padding: 14px;
-      font-size: 18px;
+      font-size: 1rem;
       background-color: #4CAF50;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .area-button:hover, .accordion:hover {
+    .area-button:hover, .accordion:hover, .submit-button:hover {
       background-color: #45a049;
     }
     .panel {
       display: none;
       margin: 10px 0;
     }
-    select, .submit-button {
-      padding: 10px;
-      font-size: 16px;
-      width: 80%;
-      max-width: 300px;
-      margin-top: 10px;
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 1rem;
+      }
+      .area-button, .accordion, .submit-button {
+        font-size: 0.95rem;
+        padding: 12px;
+      }
     }
   </style>
 </head>
@@ -49,90 +55,72 @@
 
   <button class="accordion" onclick="togglePanel('tohoku')">東北地方</button>
   <div id="tohoku" class="panel">
-    <div>
-      <button class="submit-button" onclick="submitArea('青森県')">青森県</button>
-      <button class="submit-button" onclick="submitArea('岩手県')">岩手県</button>
-      <button class="submit-button" onclick="submitArea('宮城県')">宮城県</button>
-      <button class="submit-button" onclick="submitArea('秋田県')">秋田県</button>
-      <button class="submit-button" onclick="submitArea('山形県')">山形県</button>
-      <button class="submit-button" onclick="submitArea('福島県')">福島県</button>
-    </div>
-    
+    <button class="submit-button" onclick="submitArea('青森県')">青森県</button>
+    <button class="submit-button" onclick="submitArea('岩手県')">岩手県</button>
+    <button class="submit-button" onclick="submitArea('宮城県')">宮城県</button>
+    <button class="submit-button" onclick="submitArea('秋田県')">秋田県</button>
+    <button class="submit-button" onclick="submitArea('山形県')">山形県</button>
+    <button class="submit-button" onclick="submitArea('福島県')">福島県</button>
   </div>
 
   <button class="accordion" onclick="togglePanel('kanto')">関東地方</button>
   <div id="kanto" class="panel">
-    <div>
-      <button class="submit-button" onclick="submitArea('東京都')">東京都</button>
-      <button class="submit-button" onclick="submitArea('神奈川県')">神奈川県</button>
-      <button class="submit-button" onclick="submitArea('埼玉県')">埼玉県</button>
-      <button class="submit-button" onclick="submitArea('千葉県')">千葉県</button>
-      <button class="submit-button" onclick="submitArea('茨城県')">茨城県</button>
-      <button class="submit-button" onclick="submitArea('栃木県')">栃木県</button>
-      <button class="submit-button" onclick="submitArea('群馬県')">群馬県</button>
-    </div>
-    
+    <button class="submit-button" onclick="submitArea('東京都')">東京都</button>
+    <button class="submit-button" onclick="submitArea('神奈川県')">神奈川県</button>
+    <button class="submit-button" onclick="submitArea('埼玉県')">埼玉県</button>
+    <button class="submit-button" onclick="submitArea('千葉県')">千葉県</button>
+    <button class="submit-button" onclick="submitArea('茨城県')">茨城県</button>
+    <button class="submit-button" onclick="submitArea('栃木県')">栃木県</button>
+    <button class="submit-button" onclick="submitArea('群馬県')">群馬県</button>
   </div>
 
   <button class="accordion" onclick="togglePanel('chubu')">中部地方</button>
   <div id="chubu" class="panel">
-    <div>
-      <button class="submit-button" onclick="submitArea('新潟県')">新潟県</button>
-      <button class="submit-button" onclick="submitArea('富山県')">富山県</button>
-      <button class="submit-button" onclick="submitArea('石川県')">石川県</button>
-      <button class="submit-button" onclick="submitArea('福井県')">福井県</button>
-      <button class="submit-button" onclick="submitArea('山梨県')">山梨県</button>
-      <button class="submit-button" onclick="submitArea('長野県')">長野県</button>
-      <button class="submit-button" onclick="submitArea('岐阜県')">岐阜県</button>
-      <button class="submit-button" onclick="submitArea('静岡県')">静岡県</button>
-      <button class="submit-button" onclick="submitArea('愛知県')">愛知県</button>
-    </div>
-    
+    <button class="submit-button" onclick="submitArea('新潟県')">新潟県</button>
+    <button class="submit-button" onclick="submitArea('富山県')">富山県</button>
+    <button class="submit-button" onclick="submitArea('石川県')">石川県</button>
+    <button class="submit-button" onclick="submitArea('福井県')">福井県</button>
+    <button class="submit-button" onclick="submitArea('山梨県')">山梨県</button>
+    <button class="submit-button" onclick="submitArea('長野県')">長野県</button>
+    <button class="submit-button" onclick="submitArea('岐阜県')">岐阜県</button>
+    <button class="submit-button" onclick="submitArea('静岡県')">静岡県</button>
+    <button class="submit-button" onclick="submitArea('愛知県')">愛知県</button>
   </div>
 
   <button class="accordion" onclick="togglePanel('kinki')">近畿地方</button>
   <div id="kinki" class="panel">
-    <div>
-      <button class="submit-button" onclick="submitArea('三重県')">三重県</button>
-      <button class="submit-button" onclick="submitArea('滋賀県')">滋賀県</button>
-      <button class="submit-button" onclick="submitArea('京都府')">京都府</button>
-      <button class="submit-button" onclick="submitArea('大阪府')">大阪府</button>
-      <button class="submit-button" onclick="submitArea('兵庫県')">兵庫県</button>
-      <button class="submit-button" onclick="submitArea('奈良県')">奈良県</button>
-      <button class="submit-button" onclick="submitArea('和歌山県')">和歌山県</button>
-    </div>
-    
+    <button class="submit-button" onclick="submitArea('三重県')">三重県</button>
+    <button class="submit-button" onclick="submitArea('滋賀県')">滋賀県</button>
+    <button class="submit-button" onclick="submitArea('京都府')">京都府</button>
+    <button class="submit-button" onclick="submitArea('大阪府')">大阪府</button>
+    <button class="submit-button" onclick="submitArea('兵庫県')">兵庫県</button>
+    <button class="submit-button" onclick="submitArea('奈良県')">奈良県</button>
+    <button class="submit-button" onclick="submitArea('和歌山県')">和歌山県</button>
   </div>
 
   <button class="accordion" onclick="togglePanel('chugoku')">中国・四国地方</button>
   <div id="chugoku" class="panel">
-    <div>
-      <button class="submit-button" onclick="submitArea('鳥取県')">鳥取県</button>
-      <button class="submit-button" onclick="submitArea('島根県')">島根県</button>
-      <button class="submit-button" onclick="submitArea('岡山県')">岡山県</button>
-      <button class="submit-button" onclick="submitArea('広島県')">広島県</button>
-      <button class="submit-button" onclick="submitArea('山口県')">山口県</button>
-      <button class="submit-button" onclick="submitArea('徳島県')">徳島県</button>
-      <button class="submit-button" onclick="submitArea('香川県')">香川県</button>
-      <button class="submit-button" onclick="submitArea('愛媛県')">愛媛県</button>
-      <button class="submit-button" onclick="submitArea('高知県')">高知県</button>
-    </div>
-    
+    <button class="submit-button" onclick="submitArea('鳥取県')">鳥取県</button>
+    <button class="submit-button" onclick="submitArea('島根県')">島根県</button>
+    <button class="submit-button" onclick="submitArea('岡山県')">岡山県</button>
+    <button class="submit-button" onclick="submitArea('広島県')">広島県</button>
+    <button class="submit-button" onclick="submitArea('山口県')">山口県</button>
+    <button class="submit-button" onclick="submitArea('徳島県')">徳島県</button>
+    <button class="submit-button" onclick="submitArea('香川県')">香川県</button>
+    <button class="submit-button" onclick="submitArea('愛媛県')">愛媛県</button>
+    <button class="submit-button" onclick="submitArea('高知県')">高知県</button>
   </div>
 
   <button class="accordion" onclick="togglePanel('kyushu')">九州・沖縄地方</button>
   <div id="kyushu" class="panel">
-    <div>
-      <button class="submit-button" onclick="submitArea('福岡県')">福岡県</button>
-      <button class="submit-button" onclick="submitArea('佐賀県')">佐賀県</button>
-      <button class="submit-button" onclick="submitArea('長崎県')">長崎県</button>
-      <button class="submit-button" onclick="submitArea('熊本県')">熊本県</button>
-      <button class="submit-button" onclick="submitArea('大分県')">大分県</button>
-      <button class="submit-button" onclick="submitArea('宮崎県')">宮崎県</button>
-      <button class="submit-button" onclick="submitArea('鹿児島県')">鹿児島県</button>
-      <button class="submit-button" onclick="submitArea('沖縄県')">沖縄県</button>
-    </div>
-    
+    <button class="submit-button" onclick="submitArea('福岡県')">福岡県</button>
+    <button class="submit-button" onclick="submitArea('佐賀県')">佐賀県</button>
+    <button class="submit-button" onclick="submitArea('長崎県')">長崎県</button>
+    <button class="submit-button" onclick="submitArea('熊本県')">熊本県</button>
+    <button class="submit-button" onclick="submitArea('大分県')">大分県</button>
+    <button class="submit-button" onclick="submitArea('宮崎県')">宮崎県</button>
+    <button class="submit-button" onclick="submitArea('鹿児島県')">鹿児島県</button>
+    <button class="submit-button" onclick="submitArea('沖縄県')">沖縄県</button>
   </div>
 
   <button class="area-button" onclick="submitArea('海外')">海外</button>
@@ -142,27 +130,14 @@
     const LIFF_ID = "【LIFF_ID】";
 
     function togglePanel(id) {
-      // すべてのパネルを閉じる
       const allPanels = document.querySelectorAll(".panel");
       allPanels.forEach(panel => panel.style.display = "none");
-
-      // 該当パネルのみ開く
       const targetPanel = document.getElementById(id);
       targetPanel.style.display = "block";
     }
 
     async function submitArea(area) {
       await sendToGAS(area);
-    }
-
-    async function submitSelectedPref(selectId) {
-      const select = document.getElementById(selectId);
-      const pref = select.value;
-      if (!pref) {
-        alert("都道府県を選択してください");
-        return;
-      }
-      await sendToGAS(pref);
     }
 
     async function sendToGAS(area) {
