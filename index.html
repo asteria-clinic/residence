@@ -33,7 +33,7 @@
   </style>
 </head>
 <body>
-  <h2>お住まいの都道府県を選択してください</h2>
+  <h2>現在お住まいの都道府県を選択してください</h2>
   <select id="prefecture">
     <option value="" disabled selected>都道府県を選択</option>
     <option>北海道</option>
@@ -101,30 +101,39 @@
     document.addEventListener("DOMContentLoaded", async () => {
       await initLIFF();
 
-      document.getElementById("submit").addEventListener("click", async () => {
-        const pref = document.getElementById("prefecture").value;
-        if (!pref) return alert("都道府県を選択してください");
+     document.getElementById("submit").addEventListener("click", async () => {
+  alert("送信ボタンが押されました");
 
-        const accessToken = liff.getAccessToken();
-        if (!accessToken) return alert("アクセストークンが取得できませんでした");
+  const pref = document.getElementById("prefecture").value;
+  if (!pref) return alert("都道府県を選択してください");
 
-        try {
-          await fetch(GAS_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              accessToken: accessToken,
-              prefecture: pref,
-            }),
-          });
+  alert("選択された都道府県: " + pref);
 
-          alert("ご回答ありがとうございました！");
-          liff.closeWindow();
-        } catch (error) {
-          console.error(error);
-          alert("送信に失敗しました。");
-        }
-      });
+  const accessToken = liff.getAccessToken();
+  if (!accessToken) {
+    alert("アクセストークンが取得できませんでした");
+    return;
+  }
+
+  alert("アクセストークン取得成功");
+
+  try {
+    await fetch(GAS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        accessToken: accessToken,
+        prefecture: pref,
+      }),
+    });
+
+    alert("ご回答ありがとうございました！");
+    liff.closeWindow();
+  } catch (error) {
+    alert("送信に失敗しました: " + error);
+    console.error(error);
+  }
+});
     });
   </script>
 </body>
