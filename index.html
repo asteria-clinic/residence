@@ -33,7 +33,7 @@
   </style>
 </head>
 <body>
-  <h2>現在、お住まいの都道府県を選択してください</h2>
+  <h2>現在住んでいる都道府県を選択してください</h2>
   <select id="prefecture">
     <option value="" disabled selected>都道府県を選択</option>
     <option>北海道</option>
@@ -89,64 +89,42 @@
   <button id="submit">送信する</button>
 
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbyeweFh97FpLvb7syO4TXRyD6f76lt2yGQva8X4R5ODLTni4qjxMEGHVf0MyRFjGMfw/exec";
-
-    alert("スクリプトが読み込まれました");
-
-    async function initLIFF() {
-      alert("initLIFF 開始");
-      await liff.init({});
-      alert("initLIFF 完了");
-
-      if (!liff.isLoggedIn()) {
-        alert("ログインしていないためログインします");
-        liff.login();
-      } else {
-        alert("ログイン済みです");
-      }
-    }
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyeweFh97FpLvb7syO4TXRyD6f76lt2yGQva8X4R5ODLTni4qjxMEGHVf0MyRFjGMfw/exec"; // ← 必要に応じて変更
 
     document.addEventListener("DOMContentLoaded", async () => {
-      alert("DOMContentLoaded 発火");
-
-      await initLIFF();
-      alert("LIFF 初期化後");
-
-      document.getElementById("submit").addEventListener("click", async () => {
-        alert("送信ボタンが押されました");
-
-        const pref = document.getElementById("prefecture").value;
-        if (!pref) return alert("都道府県を選択してください");
-
-        alert("選択された都道府県: " + pref);
-
+      try {
+        // LIFF初期化はミニアプリでは不要なので省略
         const accessToken = liff.getAccessToken();
-        if (!accessToken) {
-          alert("アクセストークンが取得できませんでした");
-          return;
-        }
+        const profile = await liff.getProfile();
+        const userId = profile.userId;
 
-        alert("アクセストークン取得成功");
+        document.getElementById("submit").addEventListener("click", async () => {
+          const pref = document.getElementById("prefecture").value;
+          if (!pref) return alert("都道府県を選択してください");
 
-        try {
-          await fetch(GAS_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              accessToken: accessToken,
-              prefecture: pref,
-            }),
-          });
+          try {
+            await fetch(GAS_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                accessToken: accessToken,
+                prefecture: pref,
+              }),
+            });
 
-          alert("ご回答ありがとうございました！");
-          liff.closeWindow();
-        } catch (error) {
-          alert("送信に失敗しました: " + error);
-          console.error(error);
-        }
-      });
+            alert("ご回答ありがとうございました！");
+            liff.closeWindow();
+          } catch (error) {
+            alert("送信に失敗しました: " + error);
+            console.error(error);
+          }
+        });
+
+      } catch (error) {
+        alert("LIFFエラーが発生しました（LINEアプリから開いていますか？）");
+        console.error(error);
+      }
     });
   </script>
 </body>
 </html>
-
